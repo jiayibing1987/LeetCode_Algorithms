@@ -16,7 +16,7 @@ import util.TreeNode;
 public class BinaryTreeLevelOrderTraversal {
 
 	//create a queue to store depth of node
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrder1(TreeNode root) {
     	List<List<Integer>> results = new ArrayList<List<Integer>>();
     	if(root == null) return results;
     	Queue<TreeNode> q1 = new LinkedList<TreeNode>();
@@ -40,6 +40,28 @@ public class BinaryTreeLevelOrderTraversal {
     	results.add(temp);
     	return results;
     }
+    
+    //bfs but use only one queue
+    public List<List<Integer>> levelOrder(TreeNode root) {
+    	List<List<Integer>> results = new ArrayList<List<Integer>>();
+    	if(root == null) return results;
+    	Queue<TreeNode> q1 = new LinkedList<TreeNode>();
+    	q1.add(root);
+    	while(!q1.isEmpty()){
+        	List<Integer> temp = new ArrayList<Integer>(); 
+        	int n = q1.size();
+        	for(int i=0; i<n; i++){
+        		TreeNode node = q1.peek();
+        		if(node.left != null) q1.add(node.left);
+        		if(node.right != null) q1.add(node.right);
+        		temp.add(node.val);
+        		q1.poll();
+        	}
+        	results.add(temp);
+    	}
+    	return results;
+    }
+
     
 	public static void main(String[] args) {
 		
