@@ -15,6 +15,7 @@ import util.TreeNode;
  */
 public class BinaryTreeLevelOrderTraversal {
 
+	//create a queue to store depth of node
     public List<List<Integer>> levelOrder(TreeNode root) {
     	List<List<Integer>> results = new ArrayList<List<Integer>>();
     	if(root == null) return results;
