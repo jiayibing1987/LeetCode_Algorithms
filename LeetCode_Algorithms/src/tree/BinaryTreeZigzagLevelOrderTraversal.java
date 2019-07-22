@@ -24,12 +24,9 @@ public class BinaryTreeZigzagLevelOrderTraversal {
     	if(node == null) return;
     	if(depth == results.size())//get one level deeper, need to create a new list in results
     		results.add(new LinkedList<Integer>());
-    	if(depth%2 == 0) 
-    		results.get(depth).add(node.val);
-    	else {
-    		LinkedList<Integer> list = (LinkedList<Integer>) results.get(depth);
-    		list.offerFirst(node.val);
-    	}
+    	if(depth%2 == 0) results.get(depth).add(node.val);
+    	else results.get(depth).add(0, node.val);;
+    	
     	dfs(results, depth+1, node.left);
     	dfs(results, depth+1, node.right);
     }
