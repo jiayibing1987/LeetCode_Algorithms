@@ -15,6 +15,22 @@ import util.TreeNode;
  */
 public class BinaryTreeLevelOrderTraversal {
 
+    public List<List<Integer>> levelOrder(TreeNode root) {
+       	List<List<Integer>> results = new ArrayList<List<Integer>>();
+    	if(root == null) return results;
+    	int depth = 0;
+    	dfs(results, depth, root);
+    	return results;
+    }
+    
+    private void dfs(List<List<Integer>> results, int depth, TreeNode node){
+    	if(node == null) return;
+    	if(depth == results.size()) results.add(new ArrayList<Integer>());
+    	results.get(depth).add(node.val);
+    	dfs(results, depth+1, node.left);
+    	dfs(results, depth+1, node.right);
+    }
+	
 	//create a queue to store depth of node
     public List<List<Integer>> levelOrder1(TreeNode root) {
     	List<List<Integer>> results = new ArrayList<List<Integer>>();
@@ -42,7 +58,7 @@ public class BinaryTreeLevelOrderTraversal {
     }
     
     //bfs but use only one queue
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrder2(TreeNode root) {
     	List<List<Integer>> results = new ArrayList<List<Integer>>();
     	if(root == null) return results;
     	Queue<TreeNode> q1 = new LinkedList<TreeNode>();
@@ -61,7 +77,7 @@ public class BinaryTreeLevelOrderTraversal {
     	}
     	return results;
     }
-
+    
     
 	public static void main(String[] args) {
 		
