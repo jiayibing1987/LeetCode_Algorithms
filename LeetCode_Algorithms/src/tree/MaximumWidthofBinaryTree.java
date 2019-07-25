@@ -4,13 +4,18 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import util.TreeNode;
-/*#662
+
+/**
+ * #662
  * @author Ryan
  *
  */
 public class MaximumWidthofBinaryTree {
 
-	public int widthOfBinaryTree(TreeNode root) {
+	//create a class to remember the pos of each node,
+	//for a left node, pos is parentnode's pos*2
+	//for a right node pos is parent node's pos*2+1
+	public int widthOfBinaryTree1(TreeNode root) {
 		Queue<NodeWithPosition> queue = new LinkedList<NodeWithPosition>();
 		queue.add(new NodeWithPosition(root, 0, 0));
 		int max = 0;
