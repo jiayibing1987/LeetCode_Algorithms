@@ -14,7 +14,10 @@ public class MinimumDepthofBinaryTree {
         int L = minDepth(root.left);
         int R = minDepth(root.right);
         //if nothing in left or right subtree then return depth of other tree
-        return 1 + (Math.min(L, R) > 0 ? Math.min(L, R) : Math.max(L, R));
+        if(L==0 || R==0)
+        	return Math.max(L, R)+1;
+        else
+        	return Math.min(L, R)+1;
     }
     
 }
