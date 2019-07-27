@@ -24,10 +24,6 @@ public class SumRoottoLeafNumbers {
 				+ helper(node.right, num*10 + node.val);
 	}
 	
-	
-	
-	
-	
     //solution 1 , append strings
 	int sum;
     public int sumNumbers1(TreeNode root) {
