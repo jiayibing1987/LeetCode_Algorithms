@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * #131
  * Given a string s, partition s such that every substring of the partition is a palindrome.
-
 	Return all possible palindrome partitioning of s.
  * @author Ryan
  *
@@ -16,33 +15,29 @@ public class PalindromePartitioning {
 
 	public List<List<String>> partition(String s) {
 		List<List<String>> results = new ArrayList<List<String>>();
+		if(s== null || s.isEmpty()) return results;
 		backTrack(results, new ArrayList<String>(), s);
 		return results;
 	}
 
-	//     aab
-	// a 	aa 	aab
-	//a ab  b
-	//b
-	private void backTrack(List<List<String>> results, List<String> temp, String s) {
-		if (s.isEmpty()) {
-			results.add(new ArrayList<String>(temp));
-		} else {
-			for (int i = 1; i <= s.length(); i++) {
-				if (!isPalindrome(s, i))
-					continue;
-				String firstPart = s.substring(0, i);
-				String remains = i == s.length() ? "" : s.substring(i);
-				temp.add(firstPart);
-				backTrack(results, temp, remains);
-				temp.remove(temp.size() - 1);
-			}
+	private void backTrack(List<List<String>> results, List<String> temp, String s){
+		if(s.isEmpty()){
+			results.add(temp);
+			return;
+		}
+		for(int i=1; i<=s.length(); i++){
+			String prefix = s.substring(0,i);
+			if(!isPalindrome(prefix)) continue;
+			String remain = i==s.length()? "" : s.substring(i,s.length());
+			List<String> list = new ArrayList<String>(temp);
+			list.add(prefix);
+			backTrack(results, list, remain);
 		}
 	}
 
-	private boolean isPalindrome(String s, int i) {
+	private boolean isPalindrome(String s) {
 		int low = 0;
-		int high = i - 1;
+		int high = s.length() - 1;
 		while (low < high) {
 			if (s.charAt(low) != s.charAt(high))
 				return false;
