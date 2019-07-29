@@ -8,7 +8,6 @@ import util.TreeNode;
 
 public class BinaryTreeInorder {
 
-	List<Integer> list = new ArrayList<Integer>();
 
 	// public List<Integer> inorderTraversal(TreeNode root) {
 	// helper(root);
@@ -26,20 +25,23 @@ public class BinaryTreeInorder {
 	// iteration
 	public List<Integer> inorderTraversal(TreeNode root) {
 		Stack<TreeNode> s = new Stack<TreeNode>();
-
-		TreeNode current = root;
-
-		while (current != null || s.isEmpty() == false) {
-			while (current != null) {
-				s.push(current);
-				current = current.left;
+		List<Integer> list = new ArrayList<Integer>();
+		if(root == null) return list;
+		boolean isNewNode = true;
+		s.push(root);
+		
+		while (!s.isEmpty()) {
+			while(isNewNode && s.peek().left != null){
+				s.push(s.peek().left);
 			}
-			
-			current = s.pop();
-			list.add(current.val);
-			current = current.right;
+			TreeNode curNode = s.pop();
+			list.add(curNode.val);
+			if(curNode.right == null) isNewNode = false;
+			else {
+				s.push(curNode.right);
+				isNewNode = true;
+			}
 		}
-
 		return list;
 	}
 
