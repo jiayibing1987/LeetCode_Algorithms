@@ -2,7 +2,7 @@
  
  aim for producing clean and efficient java code and learning knowledge of difference kinds of algorithms
  
- each question takes from 30 minutes up to 90 minutes
+ each question takes from 30 minutes up to 180 minutes
  
  all questions are from leetcode.com
  
