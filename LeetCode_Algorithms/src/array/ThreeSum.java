@@ -20,6 +20,30 @@ import java.util.Set;
 public class ThreeSum {
 
 	public List<List<Integer>> threeSum(int[] nums) {
+		Set<List<Integer>> set = new HashSet<List<Integer>>();
+		if(nums == null || nums.length == 0) return new ArrayList<List<Integer>>(set);
+		Arrays.sort(nums);
+		for(int i=0; i<nums.length-2; i++){
+			int j = i+1;
+			int k = nums.length-1;
+			int target = 0-nums[i];
+			while(j<k){
+				if(nums[j]+nums[k] == target){
+					set.add(Arrays.asList(nums[i], nums[j], nums[k]));
+					j++;
+					k--;
+				}
+				else if (nums[j] + nums[k] < target)
+					j++;
+				else
+					k--;
+			}
+		}
+		return new ArrayList<List<Integer>>(set);
+	}
+	
+	
+	public List<List<Integer>> threeSum1(int[] nums) {
 		List<List<Integer>> result = new ArrayList<List<Integer>>();
 		Arrays.sort(nums);
 		for (int i = 0; i < nums.length - 2; i++) {
