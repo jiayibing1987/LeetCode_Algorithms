@@ -12,7 +12,7 @@ public class WordDictionary {
 
 	class TrieNode{
 		Character c;
-		Map<Character, TrieNode> children = new HashMap<Character, TrieNode>();
+		TrieNode[] children = new TrieNode[26];
 		public TrieNode(){};
 		public TrieNode(Character c){
 			this.c = c;
@@ -21,23 +21,19 @@ public class WordDictionary {
 	}
 	
 	TrieNode root;
-    /** Initialize your data structure here. */
     public WordDictionary() {
         root = new TrieNode();
     }
     
-    /** Adds a word into the data structure. */
     public void addWord(String word) {
-    	Map<Character, TrieNode> children = root.children;
+    	TrieNode[] children = root.children;
         for(int i=0; i<word.length(); i++){
         	char c = word.charAt(i);
         	TrieNode node;
-        	if(children.containsKey(c)){
-        		node = children.get(c);
-        	}else{
-        		node = new TrieNode(c);
-        		children.put(c, node);
-        	}
+        	if(children[c-'a'] == null)
+        		children[c-'a'] = new TrieNode(c);
+    		node = children[c-'a'] ;
+
         	children = node.children;
         	if(i==word.length()-1)
         		node.isLeaf = true;
@@ -54,12 +50,13 @@ public class WordDictionary {
     	}
     	char c = word.charAt(i);
     	if(c != '.'){
-    		if(node.children.containsKey(c))
-    			return helper(node.children.get(c), word, i+1);
+    		if(node.children[c-'a'] != null)
+    			return helper(node.children[c-'a'], word, i+1);
     		else
         		return false;
     	}else{
-    		for(TrieNode childNode : node.children.values()){
+    		for(TrieNode childNode : node.children){
+    			if(childNode == null) continue;
     			if(helper(childNode, word, i+1))
     				return true;
     		}
