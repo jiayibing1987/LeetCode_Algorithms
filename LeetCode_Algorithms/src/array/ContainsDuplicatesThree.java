@@ -33,12 +33,12 @@ public class ContainsDuplicatesThree {
 	
 	//brute force O(n*k)
     public boolean containsNearbyAlmostDuplicate1(int[] nums, int k, int t) {
-    	for(int i=0; i<=nums.length-2; i++){
-    		for(int j=i+1; j<=Math.min(i+k,nums.length-1); j++){
-    			long c = (long)nums[j]-(long)nums[i];
-    			if(Math.abs(c) <=(long)t)
-    				return true;
-    		}
+		for(int i=0; i<=nums.length-2; i++){
+			for(int j=i+1; j<=Math.min(i+k,nums.length-1); j++){
+				long c = (long)nums[j]-(long)nums[i];
+				if(Math.abs(c) <=(long)t)
+					return true;
+			}
     	}
     	return false;	
     }
