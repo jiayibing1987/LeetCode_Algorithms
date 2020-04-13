@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Given two strings S and T, return if they are equal when both are typed into empty text editors. # means a backspace character.
+ *
+ */
 public class BackspaceStringCompare {
 
     public boolean backspaceCompare1(String S, String T) {
