@@ -50,6 +50,5 @@ public class CousinsinBinaryTree {
         }
         return x_depth == y_depth && x_parent != y_parent;
     }
-
-
+    
 }
