@@ -11,18 +11,22 @@ public class MaximumSumCircularSubarray {
         for(int a : A)
             sum += a;
 
-        int res1 = Integer.MIN_VALUE;
-        int cur = A[0];
+        int[] dp = new int [A.length];
+        dp[0] = A[0];
+
+        int res1 = A[0];
         for(int i=1; i<A.length; i++) {
-            cur = Math.max(0 , cur) + A[i];
-            res1 = Math.max(cur, res1);
+            dp[i] = Math.max(0, dp[i-1]) + A[i];
+            res1 = Math.max(dp[i], res1);
         }
 
-        int res2 = Integer.MAX_VALUE;
-        cur = A[0];
+        //get min sub-array, then Sum-min is max value of two-interval Subarray
+        //[    [Min Array]      ]
+        //[sub1[         ]sub2  ]
+        int res2 = A[0];
         for(int i=1; i<A.length; i++) {
-            cur = Math.min(0, cur) + A[i];
-            res2 = Math.min(cur, res2);
+            dp[i] = Math.min(0, dp[i-1]) + A[i];
+            res2 = Math.min(dp[i], res2);
         }
         if(res2 == sum) return res1;
         res2 = sum - res2;
