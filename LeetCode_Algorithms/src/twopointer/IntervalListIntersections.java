@@ -19,7 +19,7 @@ public class IntervalListIntersections {
             else
                 i++;
         }
-        return  res.toArray(new int[res.size()][2]);
+        return res.toArray(new int[res.size()][2]);
     }
 
     private int[] merge (int[] a, int[] b) {
