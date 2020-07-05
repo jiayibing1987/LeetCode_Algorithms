@@ -3,30 +3,23 @@ package dynamicprogramming;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class UglyNumber {
 
     public int nthUglyNumber(int n) {
-        PriorityQueue<Long> pq = new PriorityQueue<Long>();
-        Set<Long> set = new HashSet<>();
+        TreeSet<Long> treeSet = new TreeSet<>();
         long[] factors = {2,3,5};
         if(n < 1) return 0;
-        pq.add(1L);
-        set.add(1L);
+        treeSet.add(1L);
 
-        int count = 0;
-        long res = 0;
-        while ( count < n) {
-            res = pq.poll();
+        for(int i=1; i<n; i++) {
+            long temp = treeSet.pollFirst();
             for(long factor : factors){
-                if(!set.contains(res * factor)){
-                    pq.add(res * factor);
-                    set.add(res * factor);
-                }
+                treeSet.add(temp * factor);
             }
-            count ++;
         }
-        return (int) res;
+        return treeSet.first().intValue();
     }
 
     public static void main(String[] args) {
