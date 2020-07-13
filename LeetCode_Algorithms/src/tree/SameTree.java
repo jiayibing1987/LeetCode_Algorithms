@@ -24,5 +24,4 @@ public class SameTree {
         dfs(p.right, q.right);
     }
 
-
 }
