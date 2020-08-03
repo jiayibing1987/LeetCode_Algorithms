@@ -9,17 +9,15 @@ public class ValidPalindrome {
         while(low < high) {
             char c1 = Character.toLowerCase(chars[low]);
             char c2 = Character.toLowerCase(chars[high]);
-            if(!Character.isLetter(c1) &&  !Character.isDigit(c1)) {
+            if(!Character.isLetterOrDigit(c1)) {
                 low ++;
-            }else if(!Character.isLetter(c2) && !Character.isDigit(c2)) {
+            }else if(!Character.isLetterOrDigit(c1)) {
                 high --;
             }else {
                 if(c1!= c2)
                     return false;
-                else {
-                    low ++;
-                    high --;
-                }
+                low ++;
+                high --;
             }
         }
         return true;
