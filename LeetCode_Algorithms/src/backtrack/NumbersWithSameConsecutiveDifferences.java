@@ -17,7 +17,7 @@ public class NumbersWithSameConsecutiveDifferences {
     }
 
     private void dfs (List<Integer> res, int N, int K, int s) {
-        if(s >= Math.pow(10, N)) {
+        if(s >= Math.pow(10, N-1)) {
             res.add(s);
             return;
         }
