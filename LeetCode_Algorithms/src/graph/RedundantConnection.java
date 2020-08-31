@@ -16,9 +16,11 @@ public class RedundantConnection {
     class Graph {
         int size = 1001;
         int[] parent;
+        int[] rank;
 
         public Graph() {
             parent = new int[size];
+            rank = new int[size];
             for(int i=0; i<size; i++)
                 parent[i] = -1;
         }
@@ -34,7 +36,16 @@ public class RedundantConnection {
             int y = find(b);
             if(x == y) return true;
 
-            parent[x] = y;
+            //merge subtree under the root of deeper tree
+            if(rank[x] > rank[y])
+                parent[y] = x;
+            else if(rank[x] < rank[y])
+                parent[x] = y;
+            else {
+                //only if height of x == height of y, increase height of merged tree
+                parent[y] = x;
+                rank[x] ++;
+            }
             return false;
         }
     }
