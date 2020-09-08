@@ -2,6 +2,9 @@ package graph;
 
 import java.util.*;
 
+/**
+ * 399. Evaluate Division
+ */
 public class EvaluateDivision {
 
     Map<String, Node> graph;
@@ -28,7 +31,7 @@ public class EvaluateDivision {
         for(int i=0; i<queries.size(); i++) {
             List<String> query = queries.get(i);
             if(graph.containsKey(query.get(1)) && graph.containsKey(query.get(0))) {
-                double temp = calc(query.get(1), query.get(0), new HashSet<>());
+                double temp = dfs(query.get(1), query.get(0), new HashSet<>());
                 results[i] = temp == 0 ? -1.0 : temp;
             } else {
                 results[i] = -1.0;
@@ -37,7 +40,7 @@ public class EvaluateDivision {
         return results;
     }
 
-    private double calc(String node, String target, Set<String> visited) {
+    private double dfs(String node, String target, Set<String> visited) {
         if(visited.contains(node))
             return 0;
         if(!graph.containsKey(node))
@@ -48,7 +51,7 @@ public class EvaluateDivision {
         Node cur = graph.get(node);
         visited.add(node);
         for(String parentNode : cur.parents.keySet()) {
-            double temp = cur.parents.get(parentNode) * calc(parentNode, target, visited);
+            double temp = cur.parents.get(parentNode) * dfs(parentNode, target, visited);
             if(temp != 0) return temp;
         }
         return 0.0;
