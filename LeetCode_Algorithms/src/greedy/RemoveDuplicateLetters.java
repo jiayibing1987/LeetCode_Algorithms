@@ -1,57 +1,46 @@
 package greedy;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class RemoveDuplicateLetters {
 
     public String removeDuplicateLetters(String s) {
         if(s == null || s.length() <= 1) return s;
-
+        int n = s.length();
         char[] charArray = s.toCharArray();
-        char[] res = new char[s.length()];
-
-        int[] charIndex = new int[26];
-        Arrays.fill(charIndex, -1);
-
-        for(int i = 0; i< charArray.length; i++) {
+        char[] res = new char[n];
+        Queue<Integer>[] charIndexQueues = new LinkedList[26];
+        for(int i=0; i<26; i++)
+            charIndexQueues[i] = new LinkedList<>();
+        for(int i=0; i<n; i++) {
             char c = charArray[i];
-            //check if char already exists in result array
-            if(charIndex[c-'a'] != -1) {
-                int preIndex = charIndex[c-'a'];
-                //find the next char after preIndex
-                char nextShiftChar = findNextChar(res, preIndex, i);
-                if(nextShiftChar >= c)
-                    res[i] = '#';
-                else{
-                    res[preIndex] = '#';
-                    charIndex[c-'a'] = i;
-                }
-            }else {
-                res[i] = c;
-                charIndex[c-'a'] = i;
+            charIndexQueues[c - 'a'].add(i);
+        }
+
+        Set<Character> set = new HashSet<>();
+        Stack<Character> stack = new Stack<>();
+
+        for(int i = 0; i< n; i++) {
+            char c = charArray[i];
+            if(set.contains(c)) { charIndexQueues[c - 'a'].poll(); continue;}
+            while(!stack.isEmpty() && c < stack.peek() && charIndexQueues[stack.peek() - 'a'].size() > 1) {
+                char removed = stack.pop();
+                charIndexQueues[removed - 'a'].poll();
+                set.remove(removed);
             }
+            stack.push(c);
+            set.add(c);
         }
 
         StringBuilder sb = new StringBuilder();
-        for(char c : res) {
-            if(c != '#')
-                sb.append(c);
+        while(!stack.isEmpty()) {
+            sb.append(stack.pop());
         }
-        return sb.toString();
-    }
-
-    private char findNextChar (char[] a, int start, int end) {
-        for(int i=start+1; i<end; i++){
-            if(a[i] != '#')
-                return a[i];
-        }
-        return a[start];
+        return sb.reverse().toString();
     }
 
     public static void main (String[] args) {
         RemoveDuplicateLetters r = new RemoveDuplicateLetters();
-        System.out.print(r.removeDuplicateLetters("bcabc"));
+        System.out.print(r.removeDuplicateLetters("bbcaac"));
     }
 }
