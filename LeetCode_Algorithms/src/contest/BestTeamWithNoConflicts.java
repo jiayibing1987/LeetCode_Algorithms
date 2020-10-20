@@ -3,6 +3,7 @@ package contest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class BestTeamWithNoConflicts {
 
@@ -51,7 +52,6 @@ public class BestTeamWithNoConflicts {
 
         int[] s3 = new int[] {9,2,8,8,2};
         int[] a3 = new int[] {4,1,3,3,5};
-        System.out.println(b.bestTeamScore(s3, a3));
     }
 
 }
