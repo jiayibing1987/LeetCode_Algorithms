@@ -16,7 +16,7 @@ import java.util.Queue;
  */
 public class CloneGraph {
 
-	public Node cloneGraph(Node node) {
+	public Node cloneGraph1(Node node) {
 		if(node == null) return null;
 
 		//a map to store visited node
@@ -44,6 +44,32 @@ public class CloneGraph {
         	}
         }
         return newRoot;
+	}
+
+	public Node cloneGraph(Node node) {
+		Map<Integer, Node> map = new HashMap<Integer, Node>();
+		Queue<Node> queue = new LinkedList<Node>();
+		queue.add(node);
+		Node newRoot = null;
+
+		while(!queue.isEmpty()) {
+			Node originalNode = queue.poll();
+			Node newNode = new Node(originalNode.val, new ArrayList<Node>());
+			if(newRoot == null) newRoot = newNode;
+
+			for(Node neighbor : originalNode.neighbors) {
+				if(map.containsKey(neighbor.val)) {
+					Node newNeighbor = map.get(neighbor.val);
+					newNeighbor.neighbors.add(newNode);
+					newNode.neighbors.add(newNeighbor);
+				}else {
+					queue.add(neighbor);
+				}
+			}
+			map.put(newNode.val, newNode);
+		}
+
+		return newRoot;
 	}
 
 	// Definition for a Node.
