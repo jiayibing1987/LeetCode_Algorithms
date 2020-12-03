@@ -5,19 +5,21 @@ import util.TreeNode;
 public class IncreasingOrderSearchTree {
 
     TreeNode pre;
-
+    TreeNode head;
     public TreeNode increasingBST(TreeNode root) {
-        TreeNode dummy = new TreeNode(0);
-        pre = dummy;
         inOrder(root);
-        return dummy.right;
+        return head;
     }
 
     private void inOrder(TreeNode root) {
         if (root == null) return;
         inOrder(root.left);
+        if(head == null) {
+            head = root;
+        } else {
+            pre.right = root;
+        }
         root.left = null;
-        pre.right = root;
         pre = root;
         inOrder(root.right);
     }
