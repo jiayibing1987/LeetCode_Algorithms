@@ -33,7 +33,7 @@ public class NextGreaterElementThree {
 
         Arrays.sort(nums, j+1, length);
         String s = new String(nums);
-        long l = Long.parseLong(s);
+        long l = Long.valueOf(s);
         if(l > Integer.MAX_VALUE)
             return -1;
         else
