@@ -34,7 +34,7 @@ public class SlidingWindowMedian {
         } else {
             minHeap.add(num);
         }
-        rebalance();
+        balance();
     }
 
     private void remove(int num) {
@@ -49,7 +49,7 @@ public class SlidingWindowMedian {
             else if(num == maxHeap.peek())
                 maxHeap.poll();
         }
-        rebalance();
+        balance();
     }
 
     private double findMedian() {
@@ -61,7 +61,7 @@ public class SlidingWindowMedian {
             return minHeap.size() > maxHeap.size() ? minHeap.peek() : maxHeap.peek();
     }
 
-    private void rebalance() {
+    private void balance() {
         if(minHeap.size() - maxHeap.size() >= 2) {
             maxHeap.add(minHeap.poll());
         } else if(maxHeap.size() - minHeap.size() >= 2) {
