@@ -9,7 +9,33 @@ import java.util.Queue;
 
 public class LowestCommonAncestorofaBinaryTree {
 
+    TreeNode res;
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        res = null;
+        helper(root, p, q);
+        return res;
+    }
+
+    private boolean helper (TreeNode node, TreeNode p, TreeNode q) {
+        if(node == null) return false;
+
+        boolean left = helper(node.left, p, q);
+        boolean right = helper(node.left, p, q);
+        boolean mid = (node.val == p.val || q.val == node.val);
+
+        boolean c1 = left && right;
+        boolean c2 = left && mid;
+        boolean c3 = right && mid;
+
+        if(c1 || c2 || c3)
+            res = node;
+
+        return left || right || mid;
+    }
+
+
+    //parent pointer
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
         Map<Integer, TreeNode> map = new HashMap<>();
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
