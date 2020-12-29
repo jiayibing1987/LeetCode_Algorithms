@@ -1,14 +1,13 @@
 package twopointer;
 
 
+import java.util.Arrays;
+
 /*
  * #344 Reverse String
  */
 public class ReverseString {
 
-//    public String reverseString(String s) {
-//		return new StringBuilder(s).reverse().toString();
-//    }
     
     public String reverseString(String s) {
         char[] word = s.toCharArray();
@@ -27,7 +26,8 @@ public class ReverseString {
     
 	public static void main(String[] args) {
 		ReverseString rs = new ReverseString();
-		System.out.println(rs.reverseString("hello"));
+		char[] s = {'h', 'e', 'l', 'l', 'o'};
+		System.out.println(Arrays.toString(s));
 	}
 
 }
