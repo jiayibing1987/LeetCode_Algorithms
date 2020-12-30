@@ -51,27 +51,16 @@ public class GameofLife {
             board[i][j] = -1;
     }
 
-    private int getLiveNeighbours(int[][] board, int i, int j) {
+    private int getLiveNeighbours(int[][] board, int x, int y) {
         int count = 0;
-        if (i > 0 && j > 0 && board[i - 1][j - 1] >= 1)
-            count++;
-        if (i > 0 && board[i - 1][j] >= 1)
-            count++;
-        if (i > 0 && j < n - 1 && board[i - 1][j + 1] >= 1)
-            count++;
-
-        if (j > 0 && board[i][j - 1] >= 1)
-            count++;
-        if (j < n - 1 && board[i][j + 1] >= 1)
-            count++;
-
-        if (i < m - 1 && j > 0 && board[i + 1][j - 1] >= 1)
-            count++;
-        if (i < m - 1 && board[i + 1][j] >= 1)
-            count++;
-        if (i < m - 1 && j < n - 1 && board[i + 1][j + 1] >= 1)
-            count++;
-
+        for(int i=x-1; i<= x+1; i++) {
+            for(int j=y-1; j<= y+1; j++) {
+                if(x == i && y == j) continue;
+                if(!(i <0 || i>=m || j <0 || j >= n) && board[i][j] >= 1) {
+                    count ++;
+                }
+            }
+        }
         return count;
     }
 
