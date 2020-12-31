@@ -5,41 +5,51 @@ import java.util.PriorityQueue;
 
 public class KthLargestElementinanArray {
 
-    public int findKthLargest(int[] nums, int k) {
-    	int low = 0;
-    	int high = nums.length-1;
-    	while(low < high){
-    		int p = partition(nums, low, high);
-    		if(p>k-1)
-    			high = p-1; // search left sub-array
-    		else if(p<k-1)
-    			low = p+1; // search right sub-array
-    		else
-    			break;
-    	}
-    	return nums[k-1];
-    }
+	public int findKthLargest(int[] nums, int k) {
+		if(nums.length == 0) return -1;
+		int n = nums.length;
+		quickSort(nums, 0, nums.length - 1);
+		return nums[n-k];
+	}
 
-    private int partition(int[] nums, int low, int high) {
-    	int i = low-1;
-    	int pivot = nums[high];
-    	for(int j=low; j<=high-1; j++){
-    		if(nums[j] < pivot){
-    			i++;
-    			int temp = nums[i];
-    			nums[i] = nums[j];
-    			nums[j] = temp;
-    		}
-    	}
-    	int temp = nums[high];
-    	nums[high] = nums[i+1];
-    	nums[i+1] = temp;
-    	return i+1;
+	public void quickSort(int[] a, int low, int high) {
+		if(low >= high)
+			return;
+		int pivot = partition(a, low, high);
+		quickSort(a ,low, pivot);
+		quickSort(a ,pivot + 1, high);
+	}
+
+	private int partition(int[] a, int low, int high) {
+		int p = a[(low + high) / 2];
+		int i = low;
+		int j = high;
+
+		while(true) {
+			while (a[i] < p)
+				i++;
+			while (a[j] > p)
+				j--;
+			if (i >= j) break;
+			else {
+				swap(a, i ,j);
+				i++;
+				j--;
+			}
+
+		}
+		return j;
+	}
+
+	private void swap (int[] a, int i, int j) {
+		int temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
 	}
 
 	//using priority queue
     public int findKthLargest2(int[] nums, int k) {
-    	PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+    	PriorityQueue<Integer> pq = new PriorityQueue<>();
     	for(Integer n : nums){
     		pq.offer(n);
     		if(pq.size() > k)
@@ -57,7 +67,7 @@ public class KthLargestElementinanArray {
     
 	public static void main(String[] args) {
 		KthLargestElementinanArray k = new KthLargestElementinanArray();
-		int[] a = new int[]{3,2,3,1,2,4,5,5,6};
+		int[] a = new int[]{5,2,4,1,3,6,0};
 		System.out.print(k.findKthLargest(a, 4));
 	}
 
