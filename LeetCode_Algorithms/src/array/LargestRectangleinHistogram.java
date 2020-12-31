@@ -9,7 +9,9 @@ import java.util.Stack;
  */
 public class LargestRectangleinHistogram {
 
-	//3. dp with stack
+	//3. dp with stack, for each heights[i], assume it is the smallest the number in it's rectangle
+	//need to get "next" smaller number of left direction and right direction
+	//area = (right - left - 1) * height
 	public int largestRectangleArea(int[] heights) {
 		if(heights == null || heights.length == 0)
 			return 0;
@@ -18,6 +20,7 @@ public class LargestRectangleinHistogram {
 		int[] right = new int[n];
 
 		Stack<Integer> stack = new Stack<>();
+		//using the stack to find the last number which smaller than heights[i]
 		for(int i=0; i<n; i++) {
 			while(!stack.isEmpty() && heights[i] <= heights[stack.peek()]) {
 				stack.pop();
@@ -31,6 +34,7 @@ public class LargestRectangleinHistogram {
 		}
 
 		stack.clear();
+		//using the stack to find the next number which smaller than heights[i]
 		for(int i=n-1; i>=0; i--) {
 			while(!stack.isEmpty() && heights[i] <= heights[stack.peek()]) {
 				stack.pop();
