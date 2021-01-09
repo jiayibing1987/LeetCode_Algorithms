@@ -36,10 +36,10 @@ public class WordLadder {
         for (int i = 0; i < size; i++) {
             String parentWord = q.poll();
             for (String candidate : wordList) {
-                if (visitedSameDirection.contains(candidate)) continue;
                 if (countDifferences(candidate, parentWord) == 1) {
                     if (visitedOppositeDirection.contains(candidate))
                         return true;
+                    if (visitedSameDirection.contains(candidate)) continue;
                     q.add(candidate);
                     visitedSameDirection.add(candidate);
                 }
