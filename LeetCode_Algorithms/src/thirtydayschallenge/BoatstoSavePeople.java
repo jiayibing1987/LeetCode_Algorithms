@@ -11,7 +11,6 @@ public class BoatstoSavePeople {
         int i = 0;
         int j = people.length - 1;
         while(i <= j) {
-            if(i == j) return count + 1;
             if(people[i] + people[j] <= limit) {
                 i++;
                 j--;
