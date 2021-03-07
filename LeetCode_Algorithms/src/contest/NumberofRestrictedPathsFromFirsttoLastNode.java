@@ -21,7 +21,7 @@ public class NumberofRestrictedPathsFromFirsttoLastNode {
         Set<Integer> processed = new HashSet<>();
         Arrays.fill(dist, Integer.MAX_VALUE);
         dist[source] = 0;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[0] - a[0]);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
         pq.add(new int[] {0, source});
 
         while (!pq.isEmpty()) {
