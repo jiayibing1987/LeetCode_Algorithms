@@ -33,7 +33,6 @@ public class LongestSubstringwithAtMostKDistinctCharacters {
     public static void main (String[] args) {
         LongestSubstringwithAtMostKDistinctCharacters l = new LongestSubstringwithAtMostKDistinctCharacters();
         System.out.println(l.lengthOfLongestSubstringKDistinct("aba", 1));
-        //System.out.println(ng.nextGreaterElement(1234));
     }
 
 }
