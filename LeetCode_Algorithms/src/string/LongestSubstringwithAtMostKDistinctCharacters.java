@@ -18,7 +18,6 @@ public class LongestSubstringwithAtMostKDistinctCharacters {
             if(map.size() <=k) {
                 max = Math.max(max, (r - l + 1));
             } else {
-                //remove left pointer character and update map
                 while(map.size() > k && l < r) {
                     char leftChar = s.charAt(l);
                     map.put(leftChar, map.getOrDefault(leftChar, 0) - 1);
