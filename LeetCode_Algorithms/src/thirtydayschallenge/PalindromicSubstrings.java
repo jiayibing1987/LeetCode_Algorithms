@@ -24,7 +24,7 @@ public class PalindromicSubstrings {
         if(a[j] != a[i])
             return false;
         else {
-            return i - j <= 1  || dp[i-1][j+1];
+            return i - j <= 1 || dp[i-1][j+1];
         }
     }
 
