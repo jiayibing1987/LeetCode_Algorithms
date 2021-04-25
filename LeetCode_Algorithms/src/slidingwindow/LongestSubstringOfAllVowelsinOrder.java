@@ -10,14 +10,13 @@ public class LongestSubstringOfAllVowelsinOrder {
         int n = word.length();
         int max = 0;
         int l = 0;
-        if (word.charAt(0) == 'a') set.add('a');
-        for (int r = 1; r < n; r++) {
-            if (word.charAt(r) == 'a' && word.charAt(r - 1) != 'a') {
+        for (int r = 0; r < n; r++) {
+            if (word.charAt(r) == 'a' && (r== 0 || word.charAt(r - 1) != 'a')) {
                 l = r;
                 set.clear();
                 set.add('a');
             } else {
-                if (word.charAt(r) >= word.charAt(r - 1)) {
+                if (r >0 && word.charAt(r) >= word.charAt(r - 1)) {
                     set.add(word.charAt(r));
                     if (set.size() == 5) {
                         max = Math.max(max, r - l + 1);
