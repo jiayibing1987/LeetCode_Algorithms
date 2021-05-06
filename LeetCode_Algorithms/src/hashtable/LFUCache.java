@@ -3,7 +3,6 @@ package hashtable;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class LFUCache {
 
@@ -20,18 +19,15 @@ public class LFUCache {
         linked_map.put(1, new LinkedHashSet<>());
         cap = capacity;
         min = 1;
-        System.out.print("null,");
     }
 
     public int get(int key) {
         if (actual_map.containsKey(key)) {
             updateLinkedMapIfKeyExists(key);
-            //update count map and return from actual value map
+            //update count map and return value from actual map
             count_map.put(key, count_map.get(key) + 1);
-            System.out.print(actual_map.get(key) + ",");
             return actual_map.get(key);
         } else {
-            System.out.print(-1 + ",");
             return -1;
         }
     }
@@ -40,8 +36,8 @@ public class LFUCache {
         if (cap == 0) return;
         if (actual_map.containsKey(key)) {
             updateLinkedMapIfKeyExists(key);
-        } else { //a new key get in
-            //if current count of key reaches cap, need to remove the LFU key
+        } else {
+            //when a new key get in and if current count of key reaches cap, need to remove the LFU key
             if (actual_map.size() == cap) {
                 int LFU_key = linked_map.get(min).iterator().next();
                 linked_map.get(min).remove(LFU_key);
@@ -54,7 +50,6 @@ public class LFUCache {
         }
         count_map.put(key, count_map.getOrDefault(key, 0) + 1);
         actual_map.put(key, value);
-        System.out.print("null,");
     }
 
     /*update linked map*/
