@@ -41,7 +41,7 @@ public class MinimumWindowSubstring {
                 char leftChar = s.charAt(left);
                 window.put(leftChar, window.get(leftChar) - 1);
 
-                if(mapT.containsKey(leftChar) && window.get(leftChar) == mapT.get(leftChar) - 1) {
+                if(mapT.containsKey(leftChar) && window.get(leftChar).intValue() == mapT.get(leftChar).intValue() - 1) {
                     count --;
                 }
 
