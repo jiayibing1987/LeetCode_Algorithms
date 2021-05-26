@@ -76,12 +76,12 @@ public class QuickSort {
 		int[] b = new int[]{5,4,3,2,1};
 		int[] c = new int[]{1,2,3,4,5};
 		QuickSort qs = new QuickSort();
-		qs.sort(a);
+		//qs.sort(a);
 		qs.sort(b);
-		qs.sort(c);
+		//qs.sort(c);
 		System.out.println(Arrays.toString(a));
-/*		System.out.println(Arrays.toString(b));
-		System.out.println(Arrays.toString(c));*/
+		System.out.println(Arrays.toString(b));
+		System.out.println(Arrays.toString(c));
 	}
 
 }
