@@ -47,6 +47,7 @@ public class AlienDictionary {
         return sb.reverse().toString();
     }
 
+    //topological sort dfs
     private boolean dfs(char c, Map<Character, Set<Character>> graph, Map<Character, Integer> status, StringBuilder sb) {
         if (status.get(c) == 2) {
             return true;
