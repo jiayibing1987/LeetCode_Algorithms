@@ -3,11 +3,9 @@ package hashtable;
 import java.util.*;
 
 public class FileSystem {
-    //Map<String, String> fileContentMap;
     Node root;
 
     public FileSystem() {
-        //fileContentMap = new HashMap<>();
         root = new Node("");
     }
 
