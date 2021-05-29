@@ -3,89 +3,90 @@ package hashtable;
 import java.util.*;
 
 public class FileSystem {
-    Map<String, String> fileContentMap;
-    Map<String, Node> rootMap;
+    //Map<String, String> fileContentMap;
+    Node root;
 
     public FileSystem() {
-        fileContentMap = new HashMap<>();
-        rootMap = new HashMap<>();
+        //fileContentMap = new HashMap<>();
+        root = new Node("");
     }
 
     public List<String> ls(String path) {
         List<String> res = new LinkedList<>();
-        if(path.length() == 1) {
-            res.addAll(rootMap.keySet());
+        if (path.length() == 1) {
+            res.addAll(root.childrenMap.keySet());
         } else {
             String[] arr = path.split("/");
-            if(fileContentMap.containsKey(path)) {
-                res.add(arr[arr.length - 1]);
-            } else {
-                Node cur = null;
-                for(int i = 1; i < arr.length; i++) {
-                    if(i == 1) { //get root node
-                        cur = rootMap.get(arr[i]);
-                    } else {
-                        cur = cur.childrenMap.get(arr[i]);
-                    }
-                }
-                res.addAll(cur.childrenMap.keySet());
+            Node cur = root;
+            for (int i = 1; i < arr.length; i++) {
+                cur = cur.childrenMap.get(arr[i]);
             }
+            if(cur.isFile) return List.of(cur.name);
+            res.addAll(cur.childrenMap.keySet());
         }
         Collections.sort(res);
         return res;
     }
 
     public void mkdir(String path) {
-        if(path.length() <= 1) return;
+        if (path.length() <= 1) return;
         String[] arr = path.split("/");
-        Node parentNode = null;
-        for(int i = 1; i < arr.length; i++) {
+        Node parentNode = root;
+        for (int i = 1; i < arr.length; i++) {
             String name = arr[i];
-            if(i == 1) {
-                if(rootMap.containsKey(name))
-                    parentNode = rootMap.get(name);
-                else {
-                    parentNode = new Node(name);
-                    rootMap.put(name, parentNode);
-                }
+            if (parentNode.childrenMap.containsKey(name)) {
+                parentNode = parentNode.childrenMap.get(name);
             } else {
-                if(parentNode.childrenMap.containsKey(name)) {
-                    parentNode = parentNode.childrenMap.get(name);
-                } else {
-                    Node newNode = new Node(name);
-                    parentNode.childrenMap.put(name, newNode);
-                    parentNode = newNode;
-                }
+                Node newNode = new Node(name);
+                parentNode.childrenMap.put(name, newNode);
+                parentNode = newNode;
             }
         }
     }
 
     public void addContentToFile(String filePath, String content) {
-        String oldContent = "";
-        if(fileContentMap.containsKey(filePath)) {
-            oldContent = fileContentMap.get(filePath);
-        } else {
-            mkdir(filePath);
+        Node cur = root;
+        String[] arr = filePath.split("/");
+        for (int i = 1; i < arr.length - 1; i++) {
+            cur = cur.childrenMap.get(arr[i]);
         }
-        fileContentMap.put(filePath, oldContent + content);
+        String fileName = arr[arr.length - 1];
+        if(cur.childrenMap.containsKey(fileName)) {
+            cur.childrenMap.get(fileName).content += content;
+        } else {
+            Node fileNode = new Node(fileName);
+            fileNode.content = content;
+            fileNode.isFile = true;
+            cur.childrenMap.put(fileName, fileNode);
+        }
     }
 
     public String readContentFromFile(String filePath) {
-        return fileContentMap.get(filePath);
+        Node cur = root;
+        String[] arr = filePath.split("/");
+        for (int i = 1; i < arr.length; i++) {
+            cur = cur.childrenMap.get(arr[i]);
+        }
+        return cur.content;
     }
 
     class Node implements Comparable<Node> {
         String name;
         Map<String, Node> childrenMap = new HashMap<>();
+        String content;
+        boolean isFile;
 
         public Node(String name) {
             this.name = name;
+            content = "";
+            isFile = false;
         }
 
         @Override
         public int compareTo(Node node) {
             return this.name.compareTo(node.name);
         }
+
     }
 
     public static void main(String[] args) {
@@ -100,6 +101,6 @@ public class FileSystem {
         System.out.println(f.ls("/a/b"));
         f.addContentToFile("/a/b/xx", "some contents");
         System.out.println(f.ls("/a/b"));
-
+        System.out.println(f.readContentFromFile("/a/b/xx"));
     }
 }
