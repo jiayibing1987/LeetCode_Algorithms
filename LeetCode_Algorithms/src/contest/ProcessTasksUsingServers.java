@@ -13,7 +13,7 @@ public class ProcessTasksUsingServers {
         int timer = 0;
         int taskIndex = 0;
         PriorityQueue<Server> avaServers = new PriorityQueue<>((a, b) -> a.weight == b.weight ? a.index - b.index : a.weight - b.weight);
-        PriorityQueue<Server> onHoldServers = new PriorityQueue<>();
+        PriorityQueue<Server> onHoldServers = new PriorityQueue<>((a, b) -> a.avaTime - b.avaTime);
 
         for(int i = 0; i < n; i++) {
             avaServers.add(new Server(i, servers[i]));
