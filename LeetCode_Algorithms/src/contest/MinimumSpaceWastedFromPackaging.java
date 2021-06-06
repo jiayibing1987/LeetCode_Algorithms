@@ -39,15 +39,14 @@ public class MinimumSpaceWastedFromPackaging {
                 long curBox = supplier[i];
                 if(i == 0) {
                     fromIndex = 0;
-                    Map.Entry<Long, int[]> floor_entry = treeMap.floorEntry(curBox);
-                    toIndex = floor_entry == null ? -1 : treeMap.floorEntry(curBox).getValue()[1];
                 } else {
                     long preBox = supplier[i - 1];
                     Map.Entry<Long, int[]> higher_entry = treeMap.higherEntry(preBox);
                     fromIndex = higher_entry == null ? - 1 : higher_entry.getValue()[0];
-                    Map.Entry<Long, int[]> floor_entry = treeMap.floorEntry(curBox);
-                    toIndex = floor_entry == null ? -1 : treeMap.floorEntry(curBox).getValue()[1];
                 }
+                Map.Entry<Long, int[]> floor_entry = treeMap.floorEntry(curBox);
+                toIndex = floor_entry == null ? -1 : treeMap.floorEntry(curBox).getValue()[1];
+
                 if(toIndex < fromIndex || fromIndex == -1 || toIndex == -1) continue;
                 long provided = curBox * (toIndex - fromIndex + 1);
                 long usedSpaces = prefixSum[toIndex] - (fromIndex == 0 ? 0 : prefixSum[fromIndex - 1]);
@@ -56,7 +55,7 @@ public class MinimumSpaceWastedFromPackaging {
             min = Math.min(waste, min);
         }
 
-        if(min == Integer.MAX_VALUE) return - 1;
+        if(min == Long.MAX_VALUE) return - 1;
         return (int)(min % m);
     }
 
