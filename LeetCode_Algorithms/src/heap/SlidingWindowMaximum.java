@@ -4,6 +4,23 @@ import java.util.*;
 
 public class SlidingWindowMaximum {
 
+    public int[] maxSlidingWindow2(int[] nums, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> b[0] - a[0]);
+        int n = nums.length;
+        int[] res = new int[n-k+1];
+
+        for(int i = 0; i<nums.length; i++) {
+            while(!pq.isEmpty() && pq.peek()[1] <= i - k) {
+                pq.poll();
+            }
+
+            pq.add(new int[] {nums[i], i});
+            if(i>= k-1)
+                res[i-(k-1)] = pq.peek()[0];
+        }
+        return res;
+    }
+
     public int[] maxSlidingWindow(int[] nums, int k) {
         Deque<Integer> dq = new ArrayDeque<>();
         int n = nums.length;
@@ -70,8 +87,8 @@ public class SlidingWindowMaximum {
     public static void main(String[] args) {
         SlidingWindowMaximum w = new SlidingWindowMaximum();
         int[] a = {1,3,-1,-3,5,3,6,7};
-        System.out.println(Arrays.toString(w.maxSlidingWindow(a, 3)));
-        System.out.println(Arrays.toString(w.maxSlidingWindow(new int[] {1, -1}, 1)));
-        System.out.println(Arrays.toString(w.maxSlidingWindow(new int[] {9, 11}, 2)));
+        //System.out.println(Arrays.toString(w.maxSlidingWindow2(a, 3)));
+        System.out.println(Arrays.toString(w.maxSlidingWindow2(new int[] {1, -1}, 1)));
+        //System.out.println(Arrays.toString(w.maxSlidingWindow(new int[] {9, 11}, 2)));
     }
 }
