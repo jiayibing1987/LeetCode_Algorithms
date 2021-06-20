@@ -3,17 +3,14 @@ package contest;
 public class TheNumberofFullRounds {
 
     public int numberOfRounds(String startTime, String finishTime) {
-        String[] start = startTime.split(":");
-        String[] end = finishTime.split(":");
-
-        int startHour = Integer.parseInt(start[0]);
-        int startMinute = adjustMinute(Integer.parseInt(start[1]), true);
-        if(startMinute == 0 && !start[1].equals("00")) {
+        int startHour = Integer.parseInt(startTime.substring(0, 2));
+        int startMinute = adjustMinute(Integer.parseInt(startTime.substring(3)), true);
+        if(startMinute == 0 && !startTime.substring(3).equals("00")) {
             startHour ++;
         }
 
-        int endHour = Integer.parseInt(end[0]);
-        int endMinute = adjustMinute(Integer.parseInt(end[1]), false);
+        int endHour = Integer.parseInt(finishTime.substring(0, 2));
+        int endMinute = adjustMinute(Integer.parseInt(finishTime.substring(3)), false);
 
         if(startHour == endHour && startMinute == endMinute)
             return 0;
