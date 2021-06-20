@@ -6,14 +6,14 @@ public class TheNumberofFullRounds {
         String[] start = startTime.split(":");
         String[] end = finishTime.split(":");
 
-        int startHour = Integer.valueOf(start[0]);
-        int startMinute = adjustMinute(Integer.valueOf(start[1]), true);
+        int startHour = Integer.parseInt(start[0]);
+        int startMinute = adjustMinute(Integer.parseInt(start[1]), true);
         if(startMinute == 0 && !start[1].equals("00")) {
             startHour ++;
         }
 
-        int endHour = Integer.valueOf(end[0]);
-        int endMinute = adjustMinute(Integer.valueOf(end[1]), false);
+        int endHour = Integer.parseInt(end[0]);
+        int endMinute = adjustMinute(Integer.parseInt(end[1]), false);
 
         if(startHour == endHour && startMinute == endMinute)
             return 0;
