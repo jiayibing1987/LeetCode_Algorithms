@@ -84,7 +84,6 @@ public class AutocompleteSystem {
         Map<Character,TrieNode> children = new HashMap<>();
         TreeSet<Pair> set = new TreeSet<>();
         Map<String, Pair> wordToNode = new HashMap<>();
-        int k = 3;
 
         public TrieNode () {}
         public TrieNode (char c) {
