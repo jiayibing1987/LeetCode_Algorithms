@@ -58,38 +58,6 @@ public class MaximumNumberofWeeksCanWork {
             }
             return count;
         }
-
-        for(int i = p1; i < n; i++) {
-            pq.add(new long[] {milestones[i], 1});
-        }
-
-        while(pq.size() > 1) {
-            long[] first = pq.poll();
-            while(!pq.isEmpty() && first[0] == pq.peek()[0]) {
-                long[] next = pq.poll();
-                first[1] += next[1];
-            }
-
-            if(pq.isEmpty()) {
-                if(first[1] > 1) {
-                    count += first[1] * first[0];
-                } else {
-                    count ++;
-                }
-                break;
-            } else {
-                if(first[1] == 1) {
-
-                } else {
-                    count += (first[0] - pq.peek()[0]) * first[1];
-                    first[0] = pq.peek()[0];
-                    //int[] second = new int[]{first[0] - pq.peek()[0],  first[1]};
-                    pq.add(first);
-                    //pq.add(second);
-                }
-            }
-        }
-        return count;
     }
 
     public static void main(String[] args) {
