@@ -3,17 +3,17 @@ package greedy;
 public class PatchingArray {
 
     public int minPatches(int[] nums, int n) {
-        long coverd = 0;
+        long covered = 0;
         int i = 0;
         int count = 0;
 
-        while (coverd < n) {
-            if (i >= nums.length || coverd + 1 < nums[i]) {
-                long miss = coverd + 1;
+        while (covered < n) {
+            if (i >= nums.length || covered + 1 < nums[i]) {
+                long miss = covered + 1;
                 count++;
-                coverd = coverd + miss;
+                covered = covered + miss;
             } else {
-                coverd += nums[i++];
+                covered += nums[i++];
             }
         }
         return count;
