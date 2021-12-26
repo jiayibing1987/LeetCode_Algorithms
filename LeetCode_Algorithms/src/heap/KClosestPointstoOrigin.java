@@ -79,7 +79,7 @@ public class KClosestPointstoOrigin {
     }
 
     public long getDistance(int x, int y) {
-        return (long) x * (long) x + (long) y * (long) y;
+        return (long) x * (long) x +  (long) y * (long) y;
     }
 
     public static void main(String[] args) {
