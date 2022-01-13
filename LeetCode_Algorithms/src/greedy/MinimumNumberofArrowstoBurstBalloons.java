@@ -1,14 +1,14 @@
 package greedy;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class MinimumNumberofArrowstoBurstBalloons {
 
     public int findMinArrowShots(int[][] points) {
         if (points.length <= 1)
             return points.length;
-        Arrays.sort(points, (a, b) ->
-                a[0] != b[0] ? Integer.compare(a[0], b[0]) : Integer.compare(a[1], b[1]));
+        Arrays.sort(points, Comparator.comparingInt(a -> a[0]));
         int[] intersectionInterval = points[0];
         int count = 1;
 
