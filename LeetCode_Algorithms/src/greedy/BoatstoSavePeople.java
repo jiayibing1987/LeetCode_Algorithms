@@ -10,26 +10,25 @@ import java.util.Arrays;
 public class BoatstoSavePeople {
 
     public int numRescueBoats(int[] people, int limit) {
-        int low = 0;
-        int high = people.length-1;
         Arrays.sort(people);
-        int res = 0;
-        while(low < high){
-    		high --;
-    		res++;
-        	if(people[low] + people[high] <= limit){
-        		low++;
-        	}else{ //only people[high] can fit into boat
-        		//do nothing
-        	}
+        int count = 0;
+        int i = 0; int j = people.length - 1;
+
+        while(i <= j) {
+            if(people[i] + people[j] <= limit ) {
+                i ++;
+                j --;
+            } else {
+                j --;
+            }
+            count ++;
         }
-        if(low == high) res++;
-        return res;
+        return count;
     }
     
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		BoatstoSavePeople b = new BoatstoSavePeople();
+        System.out.println(b.numRescueBoats(new int[] {3,2,2,1}, 3));
 	}
 
 }
