@@ -12,8 +12,8 @@ public class FindAndReplaceinString {
         for(int i = 0; i < k; i ++) {
             int start= indices[i];
             int end = start + sources[i].length();
-            String orginal = s.substring(start, Math.min(end, n));
-            if(orginal.equals(sources[i])) {
+            String original = s.substring(start, Math.min(end, n));
+            if(original.equals(sources[i])) {
                 map.put(start, new String[] {sources[i], targets[i]});
             }
         }
