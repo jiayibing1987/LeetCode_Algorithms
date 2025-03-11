@@ -27,20 +27,19 @@ public class RemoveDuplicatesInSortedArray {
 	}
 
 	
-	//use two pointer, i is slower and j is faster
-	//when num[i] = num[j] which means we are in duplicate sequence then increment i
-	//if not, change num[i+1] to num[j], 
+
     public static int removeDuplicates(int[] nums) {
-        int length = nums.length;
-        if(length == 0) return 0;
-        
-        int i = 0;
-        for(int j=1; j<length; j++){
-        	if(nums[i] != nums[j]){
-        		nums[i+1] = nums[j];
-        		i++;
-        	}
-        }
-    	return i+1;
+        int n = nums.length;
+
+		int j=0;
+		int i = 0;
+		for(; i<n && j<n;) {
+			if(nums[i] == nums[j]){
+				j++;
+			}else {
+				nums[++i] = nums[j++];
+			}
+		}
+		return i+1;
     }
 }
