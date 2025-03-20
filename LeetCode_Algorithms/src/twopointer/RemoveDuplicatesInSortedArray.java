@@ -23,7 +23,7 @@ public class RemoveDuplicatesInSortedArray {
 	public static void main(String[] args) {
 		int array[] = {1,1,2};
 		System.out.println(removeDuplicates(array));
-		System.out.println(Arrays.toString(array));
+		//System.out.println(Arrays.toString(array));
 	}
 
 	
