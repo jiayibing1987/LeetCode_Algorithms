@@ -44,12 +44,51 @@ public class Dota2Senate {
     	if(q1.isEmpty()) return "Dire";
     	else return "Radiant";
     }
-    
-    
+
+	public String predictPartyVictory1(String senate) {
+		Queue<Integer> queue_radiant = new LinkedList<>();
+		Queue<Integer> queue_dire = new LinkedList<>();
+
+		for(char c : senate.toCharArray()) {
+			if(c == 'R') {
+				if(!queue_radiant.isEmpty() && queue_radiant.peek() == -1) {
+					queue_radiant.poll();
+				} else {
+					queue_radiant.add(1);
+					banNext(queue_dire);
+				}
+			}else {
+				if(!queue_dire.isEmpty() && queue_dire.peek() == -1) {
+					queue_dire.poll();
+				} else {
+					queue_dire.add(1);
+					banNext(queue_radiant);
+				}
+			}
+		}
+
+		while(!queue_radiant.isEmpty() && queue_radiant.peek() == -1) queue_radiant.poll();
+		while(!queue_dire.isEmpty() && queue_dire.peek() == -1) queue_dire.poll();
+
+		if(queue_radiant.isEmpty()) return "Dire";
+		return "Radiant";
+	}
+
+	private void banNext (Queue<Integer> q) {
+		if(q.isEmpty())
+			q.add(-1);
+		else if (q.peek() == 1) {
+			q.remove();
+		} else {
+			//nothing
+		}
+	}
+
 	public static void main(String[] args) {
 		Dota2Senate d = new Dota2Senate();
-		System.out.println(d.predictPartyVictory("DDRRR"));
-		System.out.println(d.predictPartyVictory("RDD"));
+		System.out.println(d.predictPartyVictory1("DDRRR"));
+		System.out.println(d.predictPartyVictory1("RDD"));
+		System.out.println(d.predictPartyVictory1("DR"));
 
 	}
 
